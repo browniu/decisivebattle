@@ -96,6 +96,50 @@ coord(dom) {
     return [rect.x + dom.clientWidth / 2, rect.y + dom.clientHeight / 2]
 }
 ```
+### websock 实时通信
+```JavaScript
+/**
+ * 发起 ws 数据包
+ * @param {object} data - 主体数据
+ * @param {Function} onMessage - ws 接收数据回调
+ * @param {number} [timeout] - 自定义超时时间, 当不传入时默认使用当前实例 options 中的 timeout
+ * @returns {Promise<any>}
+ */
+send(data, {onMessage, timeout} = {}) {
+    const {ws} = this;
+    let timeoutHook;
+    /**
+     * 监听 websocket 数据回调
+     * @param resolve
+     * @param reject
+     */
+    let onMessageListener;
+    /**
+     * 回收 onMessage 监听器
+     * @returns {*}
+     */
+    const recycleOnMessageListener = () => ws.removeEventListener('message', onMessageListener);
+    /**
+     * 当 promise 结束后执行
+     */
+    const onPromiseComplete = () => {
+        recycleOnMessageListener();
+        clearTimeout(timeoutHook)
+    };
+    const promise = new Promise((resolve, reject) => {
+        ws.send(JSON.stringify(data));
+        timeoutHook = this.createTimeout(reject, timeout);
+        if (onMessage) {
+            onMessageListener = (event) => this.createOnMessageListener(event, onMessage, {resolve, reject});
+            ws.addEventListener('message', onMessageListener);
+        } else {
+            resolve();
+        }
+    });
+    promise.then(onPromiseComplete, onPromiseComplete);
+    return promise;
+}
+```
 
 ## Install
 ```bash
