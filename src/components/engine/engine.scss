@@ -1,0 +1,15 @@
+.engine {
+  .cvs {
+    height: 100vh;
+    width: 200vh;
+    //background: #000;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    canvas{
+      display: inline-block;
+      height: 100%;
+    }
+  }
+}

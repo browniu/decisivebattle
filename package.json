@@ -1,0 +1,52 @@
+{
+  "name": "getland",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@xfe/webview-community": "^1.2.9",
+    "axios": "^0.19.0",
+    "deploy-zt": "0.0.12",
+    "fetch-jsonp": "^1.1.3",
+    "hammerjs": "^2.0.8",
+    "node-sass": "^4.12.0",
+    "phaser": "^3.19.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.0",
+    "react-transition-group": "^4.2.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "window::build:test": "set \"REACT_APP_ENV=development\" && react-scripts build",
+    "window::build:master": "set \"REACT_APP_ENV=production\" && react-scripts build",
+    "mac::build:test": "REACT_APP_ENV=development react-scripts build",
+    "mac::build:master": "REACT_APP_ENV=production react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "clean": "rimraf build",
+    "window::publish:test": "npm run clean && npm run window::build:test && xpx deploy-zt deploy test",
+    "window::publish:master": "npm run clean && npm run window::build:master && xpx deploy-zt deploy master",
+    "mac::publish:test": "npm run clean && npm run mac::build:test && xpx deploy-zt deploy test",
+    "mac::publish:master": "npm run clean && npm run mac::build:master && xpx deploy-zt deploy master"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "rimraf": "^3.0.0"
+  }
+}

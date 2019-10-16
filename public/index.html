@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="//zhcdn01.xoyo.com/xassets/lib/raven/3.27.0/raven.min.js" crossorigin="anonymous"></script>
+    <script>
+        if (location.host.indexOf('xoyo') > -1) {
+            (function () {
+                var getlandM20190828DSN = 'https://a7b470b112bd4fdcb7da6cde046a6c46@error-report.xoyo.com/13';
+                Raven.config(getlandM20190828DSN).install();
+            }());
+        }
+    </script>
+    <!--            <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>-->
+    <!--            <script>-->
+    <!--                let vConsole = new VConsole()-->
+    <!--                console.log('Hello world');-->
+    <!--            </script>-->
+    <title>大明宫之战</title>
+</head>
+<body>
+<div class="loading" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;background: #fff;z-index: 99999;transition: .5s ease;opacity: 1">
+    <span style="position: absolute;display: inline-block;top: 50%;left: 50%;transform: translate(-50%,-50%)">正在加载游戏资源</span>
+</div>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<script src="//zhcdn01.xoyo.com/xassets/lib/footer-track/0.0.x/footer-track.umd.js"></script>
+</body>
+</html>

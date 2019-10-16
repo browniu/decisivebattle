@@ -1,0 +1,462 @@
+$co1: #f66;
+$co1h: #b9465c;
+$co2: #4fc08d;
+$co2h: #42b983;
+$co3: #486491;
+$co3h: #273849;
+$co3l: #1c90f3;
+$co1e: #faf2e0;
+$co2e: #b36327;
+$co3e: #6f2d1c;
+$co4: #dda98a;
+$mapScale: 0.75;
+
+.pop {
+  &.match {
+    background-image: url('../../assets/images/flow_match.jpg');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, .7);
+      transition: .2s ease;
+    }
+
+    &.matched:before {
+      opacity: 0;
+    }
+
+    .pop-inner.matching {
+      font-size: 24px;
+    }
+
+    .pop-content {
+      height: 100px;
+      width: 350px;
+
+      .status {
+        top: 0;
+        left: 0;
+        transform: scale(1.2);
+
+        &:last-child {
+          left: unset;
+          right: 0;
+        }
+      }
+
+      .match-countdown {
+        position: absolute;
+        left: 50%;
+        bottom: -90%;
+        transform: translateX(-50%);
+        padding: 40px;
+        background-image: url('../../assets/images/countdown_3.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        &.two {
+          background-image: url('../../assets/images/countdown_2.png');
+        }
+
+        &.one {
+          background-image: url('../../assets/images/countdown_1.png');
+        }
+      }
+    }
+
+  }
+
+
+  &.count {
+    background: rgba(0, 0, 0, .7);
+
+    .pop-content {
+      background-image: url('../../assets/images/count_bg.png');
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 180px;
+      width: 280px;
+      padding: 15px;
+      text-align: center;
+
+      .count-close {
+        display: inline-block;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        height: 30px;
+        width: 30px;
+        background-image: url('../../assets/images/count_close.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .count-label {
+        background-image: url('../../assets/images/count_label_2.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 50px;
+        position: relative;
+        top: -20px;
+
+        &.win {
+          background-image: url('../../assets/images/count_label.png');
+        }
+
+        &.draw {
+          background-image: url('../../assets/images/count_label_3.png');
+        }
+      }
+
+      .count-info {
+        position: relative;
+        top: -10px;
+
+        h5 {
+          font-size: 18px;
+          color: #b36327;
+        }
+
+        .sub {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #6f2d1c;
+
+          span {
+            display: block;
+
+            &.score {
+              i {
+                font-size: 12px;
+                color: $co2h;
+
+                &.minus {
+                  color: $co1h;
+                }
+              }
+            }
+          }
+
+        }
+      }
+
+      .button {
+        padding: 20px 45px;
+        border-radius: 5px;
+        display: inline-block;
+        background-image: url('../../assets/images/error-prompt-modal-back-to-home.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        //margin-right: 15px;
+
+        //&:last-child {
+        //  background-image: url('../../assets/images/button_replay.png');
+        //  margin-right: 0;
+        //}
+      }
+    }
+  }
+}
+
+.gamebox {
+  height: 100%;
+  width: 100%;
+  display: none;
+
+  &.render {
+    display: block;
+  }
+}
+
+.game {
+  font-size: 16px;
+  height: 100%;
+  text-align: center;
+  background-image: url('../../assets/images/map.jpg');
+  background-size: auto 105%;
+  background-position: center;
+
+
+  .log {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00000033;
+    color: #fff;
+    padding: 10px;
+    z-index: 999;
+    pointer-events: none;
+    font-size: 12px;
+    display: none;
+  }
+
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    z-index: 1;
+
+    .countdown {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      padding: 10px 25px;
+      color: #fff;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('../../assets/images/status_countdown.png');
+
+      span {
+        position: relative;
+        left: 5px;
+      }
+
+      //border-bottom-right-radius: 20px;
+      //border-bottom-left-radius: 20px;
+      //box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    }
+
+    .status {
+      &:last-child {
+        right: 30px;
+        left: unset;
+      }
+    }
+  }
+
+  .core {
+    height: 100vh * $mapScale;
+    width: 200vh * $mapScale;
+    display: inline-block;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*对象池初始化样式*/
+    .pool-bullet {
+      display: none;
+      height: 30px;
+      width: 30px;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 9999;
+    }
+
+    .bullet {
+      display: inline-block;
+      position: absolute;
+      height: 30px;
+      width: 30px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('../../assets/images/bomb_blue.png');
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    &.landscape {
+      height: 50vw * $mapScale;
+      width: 100vw * $mapScale;
+    }
+
+    .map {
+      height: 100%;
+      width: 100%;
+
+      .row {
+        width: calc(100% / 9);
+        display: inline-block;
+        height: 100%;
+
+        .item {
+          display: inline-block;
+          float: left;
+          width: 100%;
+          height: calc(100% / 5);
+          box-sizing: border-box;
+          position: relative;
+          z-index: 1;
+
+          &.able {
+            transform-origin: center;
+            transform: scale(1.5);
+            z-index: 2;
+
+            &:before {
+              z-index: 1;
+              display: inline-block;
+              content: '';
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              height: 60%;
+              width: 60%;
+              pointer-events: none;
+              transition: .15s ease;
+              transform-origin: center;
+            }
+
+            &.active:before {
+              background-color: rgba(255, 102, 102, .3);
+              transform: translate(-50%, -50%) scale(1.5);
+            }
+
+            &:active:before {
+              background-color: rgba(0, 0, 0, .3);
+            }
+          }
+
+
+          &.middle {
+            &:after {
+              z-index: 2;
+              position: absolute;
+              display: inline-block;
+              content: '';
+              height: 60%;
+              width: 60%;
+              pointer-events: none;
+              transition: .15s ease;
+              transform-origin: center;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%) scale(.7);
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-image: url('../../assets/images/chess_middle.png');
+            }
+          }
+
+          .chess {
+            display: inline-block;
+            height: 80%;
+            width: 80%;
+            pointer-events: none;
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(.8);
+            border-radius: 5%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 99;
+
+            &.blue {
+              background-image: url('../../assets/images/chess_blue.png');
+            }
+
+            &.red {
+              background-image: url('../../assets/images/chess_red.png');
+            }
+
+            &.reverse {
+              &.blue {
+                background-image: url('../../assets/images/chess_red.png');
+              }
+
+              &.red {
+                background-image: url('../../assets/images/chess_blue.png');
+              }
+
+              &.middle {
+                background: unset;
+              }
+            }
+
+            &.middle {
+              background: unset;
+            }
+
+            i {
+              position: absolute;
+              left: 50%;
+              transform: translateX(-50%) scale(.8);
+              bottom: -15px;
+              opacity: .7;
+              color: #fff;
+              transition: .3s ease;
+              background-image: linear-gradient(to top, #7a261e, #9f701f);
+              border: #ffc67e solid 2px;
+              font-size: 12px;
+              padding: 0 5px;
+            }
+
+            .demo {
+              pointer-events: none;
+              position: absolute;
+              display: inline-block;
+              height: 50px;
+              width: 50px;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) scale(1.6);
+              background-size: 100% auto;
+              background-position: center 0;
+              background-repeat: no-repeat;
+              background-image: url('../../assets/images/frame_bomb.png');
+
+              &.plus {
+                background-image: url('../../assets/images/frame_plus.png');
+                transform: translate(-50%, -50%) scale(1);
+                top: 25%;
+              }
+
+              &.act {
+                animation: bomb 500ms steps(6);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes bomb {
+  0% {
+    background-position: center 0;
+  }
+  100% {
+    background-position: center -600px;
+  }
+}

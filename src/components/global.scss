@@ -1,0 +1,247 @@
+$co1: #faf2e0;
+$co2: #b36327;
+$co3: #6f2d1c;
+$co4: #dda98a;
+$co5: #96a1f5;
+$co6: #ffd049;
+$mapScale: 0.8;
+
+.close {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  transform: rotate(45deg);
+  transition: .3s ease;
+  z-index: 99;
+
+  &:hover {
+    transform: rotate(135deg);
+  }
+
+  &:before, &:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    background: #666;
+    transform: translateX(-50%);
+  }
+
+  &:after {
+    top: 50%;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    transform: translateY(-50%);
+  }
+}
+
+.status {
+  display: inline-block;
+  position: absolute;
+  left: 30px;
+  top: 15px;
+  height: 50px;
+
+  .avatar {
+    height: 100%;
+    width: 50px;
+    border-radius: 50%;
+    position: relative;
+    border: $co3 solid 3px;
+    box-sizing: border-box;
+    background: $co4;
+
+    &.left {
+      background: $co5;
+    }
+
+    &.right {
+      background: $co6;
+    }
+
+    display: inline-block;
+    z-index: 3;
+
+    span {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      display: inline-block;
+      height: 80%;
+      width: 80%;
+      background-image: url('../assets/images/avatar.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .info {
+    height: 60%;
+    display: inline-block;
+    vertical-align: top;
+    background-image: url('../assets/images/status_info_texture.png');
+    background-position: center;
+    background-size: contain;
+    position: relative;
+    top: 15%;
+    min-width: 45px;
+
+    &:before, &:after {
+      z-index: 2;
+      top: 0;
+      right: -25px;
+      position: absolute;
+      content: '';
+      display: inline-block;
+      height: 100%;
+      width: 25px;
+      background-image: url('../assets/images/status_info.png');
+      background-position: center right;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    &:after {
+      right: unset;
+      left: -25px;
+      background-position: center left;
+
+    }
+
+    .name {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      top: 1px;
+      font-size: 12px;
+      color: #fff;
+      z-index: 4;
+      min-width: 45px;
+      padding: 5px;
+    }
+  }
+
+  &.left {
+    .info {
+      background-image: url('../assets/images/status_info_texture_red.png');
+
+      &:before, &:after {
+        background-image: url('../assets/images/status_info_red.png');
+      }
+    }
+
+  }
+
+  &.right {
+
+    .info {
+      background-image: url('../assets/images/status_info_texture_blue.png');
+      &:before, &:after {
+        background-image: url('../assets/images/status_info_blue.png');
+      }
+    }
+
+  }
+
+  &.vertical {
+
+    .avatar {
+      display: block;
+      left: 50%;
+      transform: translateX(-50%);
+
+      &:before, &:after {
+        z-index: 0;
+        content: '';
+        display: inline-block;
+        height: 50%;
+        width: 50px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: -40px;
+        background-image: url('../assets/images/status_avatar_texture.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      &:after {
+        left: -40px;
+        transform: translateY(-50%) scaleX(-1);
+      }
+    }
+
+    .info {
+      top: -3px;
+      z-index: 3;
+
+      .name {
+        text-align: center;
+      }
+    }
+
+  }
+
+  &.reverse {
+    .avatar {
+      float: right;
+    }
+  }
+}
+
+//fade -----------------------------------------------------------------------------------------------------------------
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+// landscape -----------------------------------------------------------------------------------------------------------
+
+.App.autols {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media screen and (orientation: portrait) {
+    height: 100vw;
+    width: 100vh;
+    transform: translate(-50%, -50%) rotate(90deg);
+    .core {
+      &.landscape {
+        height: 100vw * $mapScale !important;
+        width: 200vw * $mapScale !important;
+      }
+    }
+  }
+
+  @media screen and (orientation: landscape) {
+    height: 100vh;
+    width: 100vw;
+  }
+}
