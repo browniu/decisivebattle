@@ -8,6 +8,22 @@
 
 ## Core 核心逻辑
 
+### 图像队列预加载
+```JavaScript
+const preload = (images) => {
+  const core = (e) => {
+    new Promise(resolve => {
+      const img = new Image()
+      img.src = e
+      img.onload = resolve
+    })
+    return Promise.all(images.map(async img => core(img)))
+  }
+}
+// 用例
+await preload(['a.jpg','b.jpg'])
+```
+
 ### 对象池
 ```JavaScript
 let pool = [];
@@ -49,21 +65,6 @@ async function launch(player, from, target, during) {
 }
 ```
 
-### 资源预加载
-```JavaScript
-preload() {
-    return Promise.all(this.preloadQueue.map(async (e) => {
-        return this.preloadCore(e)
-    }))
-}
-preloadCore(src) {
-    return new Promise(resolve => {
-        const img = new Image()
-        img.src = src
-        img.onload = resolve
-    })
-}
-```
 ### 音效管理
 ```JavaScript
 let audios = [];
