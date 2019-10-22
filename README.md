@@ -6,7 +6,17 @@
 
 ![demo](./static/jzdmg.gif)
 
-## Core 核心逻辑
+## 可服用逻辑
+
+### 盒模型碰撞检测
+```JavaScript
+const reactCrash= (react1,react2) => {
+    return react1.offsetLeft<react2.offsetLeft+react2.offsetWidth&&
+           react1.offsetLeft+react1.offsetWidth>react2.offsetLeft&&
+           react1.offsetTop<react2.offsetTop+react2.offsetHeight&&
+           react1.offsetHeight+react1.offsetTop>react2.offsetTop
+}
+```
 
 ### 图像队列预加载
 ```JavaScript
