@@ -6,7 +6,7 @@
 
 ![demo](./static/jzdmg.gif)
 
-## 可服用逻辑
+## 可复用逻辑
 
 ### 盒模型碰撞检测
 ```JavaScript
